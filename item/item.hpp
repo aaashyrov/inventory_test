@@ -4,40 +4,30 @@
 
 #ifndef INVENTORY_TEST_ITEM_ITEM_HPP_
 #define INVENTORY_TEST_ITEM_ITEM_HPP_
-#include<string>
+#include<QString>
 
 class Item {
  public:
 
   enum class Type {
-    UNKNOWN, APPLE, BANANA
+    APPLE, BANANA
   };
 
-  Item(Type type, std::string image_path);
+  Item(Type type, QString image_path);
 
   ~Item() = default;
   Item(const Item &) = default;
   Item(Item &&) noexcept = default;
   Item &operator=(const Item &) = default;
   Item &operator=(Item &&) noexcept = default;
-
+  Type type() const noexcept;
+  const QString& impath() const noexcept;
  private:
   Type type_;
-  std::string image_path_;
+  QString image_path_;
 };
 
-std::string to_string(Item::Type type) {
-  switch (type) {
-    case Item::Type::APPLE: return "apple";
-    case Item::Type::BANANA: return "banana";
-    case Item::Type::UNKNOWN: return "unknown";
-  }
-}
-
-Item::Type to_type(const std::string &type) {
-  if (type == "apple") return Item::Type::APPLE;
-  if (type == "banana") return Item::Type::BANANA;
-  return Item::Type::UNKNOWN;
-}
+QString to_string(Item::Type type);
+Item::Type to_type(const QString &type);
 
 #endif //INVENTORY_TEST_ITEM_ITEM_HPP_
