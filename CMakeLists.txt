@@ -1,6 +1,22 @@
 cmake_minimum_required(VERSION 3.17)
-project(inventory_test)
+project(inventory_test LANGUAGES CXX)
 
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(inventory_test main.cpp)
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
+
+add_executable(inventory_test
+        main.cpp
+        mainwindow.h
+        mainwindow.cpp
+        mainwindow.ui
+        )
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+        Qt5::Widgets
+        )
