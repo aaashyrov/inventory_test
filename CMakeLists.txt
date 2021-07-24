@@ -13,17 +13,17 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 add_subdirectory(item)
 add_subdirectory(database)
 add_subdirectory(inventory)
+add_subdirectory(controller)
 
 add_executable(inventory_test
         main.cpp
         mainwindow.h
         mainwindow.cpp
+
         mainwindow.ui
         )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
         Qt5::Widgets
-        libitem
-        libdatabase
-        libinventory
+        libcontroller
         )

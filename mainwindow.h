@@ -7,6 +7,8 @@
 #include <memory>
 #include <QWidget>
 
+#include <controller/controller.hpp>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
@@ -20,6 +22,8 @@ class Widget : public QWidget {
 
  private:
   std::unique_ptr<Ui::Widget> ui_;
+  std::shared_ptr<Database> database_;
+  std::unique_ptr<Controller> controller_;
 };
 
 #endif //INVENTORY_TEST__MAINWINDOW_H_
