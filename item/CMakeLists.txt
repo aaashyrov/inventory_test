@@ -1,11 +1,11 @@
-set(NAME libdatabase)
+set(NAME libitem)
 
 set(HDRS
-        database.hpp
+        item.hpp
         )
 
 set(SRCS
-        database.cpp
+        item.cpp
         )
 
 add_library(${NAME} ${HDRS} ${SRCS})
