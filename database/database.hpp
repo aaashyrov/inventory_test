@@ -8,8 +8,9 @@
 
 class Database {
  public:
-  virtual bool connect() noexcept = 0;
-  virtual bool disconnect() noexcept = 0;
+  virtual bool isOpen() noexcept = 0;
+  virtual QString message() noexcept = 0;
+  virtual ~Database() = default;
 };
 
 #endif //INVENTORY_TEST_DATABASE_DATABASE_HPP_
