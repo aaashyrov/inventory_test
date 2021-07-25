@@ -4,21 +4,25 @@
 
 #ifndef INVENTORY_TEST_INVENTORY_INVENTORY_HPP_
 #define INVENTORY_TEST_INVENTORY_INVENTORY_HPP_
+#include <memory>
 #include <QMap>
 #include <QVector>
 #include <QString>
 #include "../item/item.hpp"
+#include "../database/database.hpp"
 
 class Inventory {
  public:
-  explicit Inventory(qsizetype size);
-
+  Inventory() = default;
   ~Inventory() = default;
+
   qsizetype size() const noexcept;
-  const QVector<QPair<Item::Type, qsizetype>> &items() const noexcept;
+  bool initialize(const std::shared_ptr<Database> &database, const QMap<size_t, Item> &items) noexcept;
+  const QMap<qsizetype, QPair<Item::Type, size_t>> &items() const noexcept;
  private:
   qsizetype size_;
-  QVector<QPair<Item::Type, qsizetype>> items_;
+  QString message_;
+  QMap<qsizetype, QPair<Item::Type, size_t>> items_;
 };
 
 #endif //INVENTORY_TEST_INVENTORY_INVENTORY_HPP_
