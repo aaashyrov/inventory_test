@@ -22,6 +22,8 @@ class SqliteDb : public Database {
   ~SqliteDb() override;
   bool isOpen() noexcept override;
   QString message() noexcept override;
+  qsizetype size_of(const QString &table) noexcept override;
+  std::optional<QVariant> value(const QString &table, const QString &name, qsizetype i) noexcept override;
 
  private:
   Param param_;
