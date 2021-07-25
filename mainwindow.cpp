@@ -52,7 +52,7 @@ bool MainWindow::initialize(int argc, char **argv) noexcept {
 
   for (size_t i = 0; i < controller_->items().size(); ++i) {
     auto image = new QImage();
-    if (not image->load("/home/alisher/CLionProjects/inventory_test/resources/" + controller_->items()[i].impath())) {
+    if (not image->load("/home/alisher/CLionProjects/inventory_test/resources/" + controller_->items()[i+1].impath())) {
       qDebug() << "image " << controller_->items()[i].impath() << " was not loaded";
       return false;
     }
