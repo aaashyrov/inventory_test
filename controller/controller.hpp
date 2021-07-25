@@ -14,9 +14,10 @@ class Controller {
  public:
   Controller();
   ~Controller() = default;
-  bool initialize(const std::shared_ptr<Database> &database) noexcept;
+
   [[nodiscard]] const Inventory &inventory() const noexcept;
   [[nodiscard]] const QMap<size_t, Item> &items() const noexcept;
+  bool initialize(const std::shared_ptr<Database> &database) noexcept;
 
  private:
   Inventory inventory_;

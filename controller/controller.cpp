@@ -14,7 +14,6 @@ const Inventory &Controller::inventory() const noexcept {
 }
 
 bool Controller::initialize(const std::shared_ptr<Database> &database) noexcept {
-
   auto size = database->size_of("item");
   if (not size) return false;
 
@@ -30,7 +29,9 @@ bool Controller::initialize(const std::shared_ptr<Database> &database) noexcept 
       return false;
     }
 
-    items_.insert(i, Item(to_type(type.value().toString()), impath.value().toString()));
+    Item new_item{to_type(type.value().toString()), impath.value().toString()};
+    qDebug()<<new_item.impath();
+    items_.insert(i, new_item);
   }
 
   if (not inventory_.initialize(database, items_)) {
