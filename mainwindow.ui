@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1268</width>
-    <height>903</height>
+    <width>1035</width>
+    <height>841</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="windowTitle">
    <string>Widget</string>
@@ -18,7 +24,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>1241</width>
+     <width>1011</width>
      <height>61</height>
     </rect>
    </property>
@@ -30,7 +36,7 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1231</width>
+      <width>1011</width>
       <height>51</height>
      </rect>
     </property>
@@ -64,16 +70,16 @@
     <rect>
      <x>9</x>
      <y>79</y>
-     <width>1251</width>
-     <height>811</height>
+     <width>1011</width>
+     <height>751</height>
     </rect>
    </property>
    <widget class="QPushButton" name="menuButton">
     <property name="geometry">
      <rect>
       <x>750</x>
-      <y>760</y>
-      <width>481</width>
+      <y>710</y>
+      <width>241</width>
       <height>31</height>
      </rect>
     </property>
@@ -87,7 +93,7 @@
       <x>10</x>
       <y>20</y>
       <width>721</width>
-      <height>771</height>
+      <height>721</height>
      </rect>
     </property>
    </widget>
@@ -96,8 +102,8 @@
      <rect>
       <x>750</x>
       <y>20</y>
-      <width>481</width>
-      <height>491</height>
+      <width>241</width>
+      <height>481</height>
      </rect>
     </property>
    </widget>
@@ -112,8 +118,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>522</x>
-     <y>46</y>
+     <x>1019</x>
+     <y>47</y>
     </hint>
     <hint type="destinationlabel">
      <x>492</x>
@@ -144,8 +150,8 @@
    <slot>show()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>683</x>
-     <y>509</y>
+     <x>759</x>
+     <y>789</y>
     </hint>
     <hint type="destinationlabel">
      <x>677</x>
@@ -160,8 +166,8 @@
    <slot>hide()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>709</x>
-     <y>504</y>
+     <x>759</x>
+     <y>789</y>
     </hint>
     <hint type="destinationlabel">
      <x>699</x>
