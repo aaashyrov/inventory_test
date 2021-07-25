@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Widgets Gui REQUIRED)
 
 add_subdirectory(item)
 add_subdirectory(database)
@@ -24,6 +24,7 @@ add_executable(inventory_test
         )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
+        Qt5::Gui
         Qt5::Widgets
         libcontroller
         )
