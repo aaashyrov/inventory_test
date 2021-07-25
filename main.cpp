@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     QMessageBox message_box;
     message_box.setText(mainwindow.message());
     return message_box.exec();
-  };
+  }
 
   mainwindow.show();
 
