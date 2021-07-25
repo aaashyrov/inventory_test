@@ -10,9 +10,10 @@ class Item {
  public:
 
   enum class Type {
-    APPLE, BANANA
+    UNKNOWN, APPLE, BANANA
   };
 
+  Item() = default;
   Item(Type type, QString image_path);
 
   ~Item() = default;
@@ -21,7 +22,7 @@ class Item {
   Item &operator=(const Item &) = default;
   Item &operator=(Item &&) noexcept = default;
   Type type() const noexcept;
-  const QString& impath() const noexcept;
+  const QString &impath() const noexcept;
  private:
   Type type_;
   QString image_path_;
