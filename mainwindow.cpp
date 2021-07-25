@@ -7,7 +7,7 @@
 
 constexpr unsigned int count = 3;
 
-Widget::Widget(QWidget *parent) : QWidget(parent), ui_{std::make_unique<Ui::Widget>()} {
+MainWindow::MainWindow(QWidget *parent) : QWidget(parent), ui_{std::make_unique<Ui::Widget>()} {
   ui_->setupUi(this);
   ui_->gameWidget->hide();
   ui_->inventoryTableWidget->setRowCount(count);
@@ -23,4 +23,4 @@ Widget::Widget(QWidget *parent) : QWidget(parent), ui_{std::make_unique<Ui::Widg
   }
 }
 
-Widget::~Widget() = default;
+MainWindow::~MainWindow() = default;

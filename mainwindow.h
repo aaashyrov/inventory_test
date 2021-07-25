@@ -13,12 +13,12 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
 
-class Widget : public QWidget {
+class MainWindow : public QWidget {
  Q_OBJECT
 
  public:
-  Widget(QWidget *parent = nullptr);
-  ~Widget();
+  explicit MainWindow(QWidget *parent = nullptr);
+  ~MainWindow() override;
 
  private:
   std::unique_ptr<Ui::Widget> ui_;
