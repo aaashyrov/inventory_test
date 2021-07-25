@@ -12,13 +12,15 @@
 
 class Controller {
  public:
-  explicit Controller(std::shared_ptr<Database> db);
+  Controller();
   ~Controller() = default;
+  bool initialize(const std::shared_ptr<Database> &database) noexcept;
   [[nodiscard]] const Inventory &inventory() const noexcept;
-  [[nodiscard]] const QVector<Item> &items() const noexcept;
+  [[nodiscard]] const QMap<size_t, Item> &items() const noexcept;
+
  private:
-  QVector<Item> items_;
   Inventory inventory_;
+  QMap<size_t, Item> items_;
 };
 
 #endif //INVENTORY_TEST_CONTROLLER_CONTROLLER_HPP_
