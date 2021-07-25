@@ -6,14 +6,16 @@
 #include "ui_mainwindow.h"
 #include <database/sqlitedb.hpp>
 #include <iostream>
-
+#include <QDebug>
 constexpr unsigned int count = 3;
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent), ui_{std::make_unique<Ui::Widget>()}, controller_{std::make_unique<Controller>()} {}
 
 bool MainWindow::initialize(int argc, char **argv) noexcept {
-  database_ = std::make_shared<SqliteDb>(Param{"127.0.0.1", "/home/alisher/inventory.db", "root", ""});
+  database_ =
+      std::make_shared<SqliteDb>(Param{"127.0.0.1", "/home/alisher/CLionProjects/inventory_test/resources/inventory.db",
+                                       "root", ""});
   if (not database_->isOpen()) {
     message_ = database_->message();
     return false;
@@ -22,7 +24,6 @@ bool MainWindow::initialize(int argc, char **argv) noexcept {
   if (not controller_->initialize(database_)) {
     return false;
   }
-
 
   ui_->setupUi(this);
 
@@ -42,11 +43,23 @@ bool MainWindow::initialize(int argc, char **argv) noexcept {
   ui_->itemTableWidget->verticalHeader()->hide();
   ui_->itemTableWidget->setColumnCount(1);
   ui_->itemTableWidget->horizontalHeader()->hide();
+  ui_->itemTableWidget->setColumnWidth(0, cellsize);
   ui_->itemTableWidget->setRowCount(controller_->items().size());
 
-  for (std::size_t i = 0; i < 2; ++i) {
+  for (std::size_t i = 0; i < controller_->items().size(); ++i) {
     ui_->itemTableWidget->setRowHeight(i, cellsize);
-    ui_->itemTableWidget->setColumnWidth(i, cellsize);
+  }
+
+  for (size_t i = 0; i < controller_->items().size(); ++i) {
+    auto image = new QImage();
+    if (not image->load("/home/alisher/CLionProjects/inventory_test/resources/" + controller_->items()[i].impath())) {
+      qDebug() << "image " << controller_->items()[i].impath() << " was not loaded";
+      return false;
+    }
+
+    auto *item = new QTableWidgetItem{};
+    item->setData(Qt::DecorationRole, QPixmap::fromImage(*image).scaled(cellsize, cellsize));
+    ui_->itemTableWidget->setItem(i, 0, item);
   }
 
   return true;
