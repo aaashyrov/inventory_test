@@ -19,8 +19,11 @@ class MainWindow : public QWidget {
  public:
   explicit MainWindow(QWidget *parent = nullptr);
   ~MainWindow() override;
+  bool initialize(int argc, char **argv) noexcept;
+  const QString& message() noexcept;
 
  private:
+  QString message_;
   std::unique_ptr<Ui::Widget> ui_;
   std::shared_ptr<Database> database_;
   std::unique_ptr<Controller> controller_;
