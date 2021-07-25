@@ -31,7 +31,8 @@ qsizetype SqliteDb::size_of(const QString &table) noexcept {
   if (not query.exec("select * from " + table + ";")) {
     return 0;
   }
-  qsizetype size = 0;
+  qsizetype size = 1;
+  query.first();
   while (query.next()) ++size;
   return size;
 }
@@ -42,5 +43,6 @@ std::optional<QVariant> SqliteDb::value(const QString &table, const QString &nam
     qDebug() << "[SqliteDb::value] " << query.lastError().text();
     return std::nullopt;
   }
+  query.first();
   return query.value(name);
 }
