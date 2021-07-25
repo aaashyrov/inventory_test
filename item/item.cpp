@@ -18,8 +18,8 @@ QString to_string(Item::Type type) {
   switch (type) {
     case Item::Type::APPLE: return "apple";
     case Item::Type::BANANA: return "banana";
+    default:return "unknown";
   }
-  return "unknown";
 }
 
 Item::Type to_type(const QString &type) {
