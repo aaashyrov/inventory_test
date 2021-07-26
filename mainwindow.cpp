@@ -26,12 +26,27 @@ bool MainWindow::initialize(int argc, char **argv) noexcept {
   }
 
   ui_->setupUi(this);
-
   ui_->gameWidget->hide();
-
   ui_->inventoryTableWidget->setColumnCount(count);
   ui_->inventoryTableWidget->verticalHeader()->hide();
   ui_->inventoryTableWidget->horizontalHeader()->hide();
+
+  ui_->itemTableWidget->verticalHeader()->hide();
+  ui_->itemTableWidget->horizontalHeader()->hide();
+  ui_->itemTableWidget->setColumnCount(1);
+
+  if (not updateView()) {
+    return false;
+  }
+
+  return true;
+}
+
+const QString &MainWindow::message() noexcept {
+  return message_;
+}
+
+bool MainWindow::updateView() noexcept {
   ui_->inventoryTableWidget->setRowCount(controller_->inventory().size() / count);
 
   auto cellsize = ui_->inventoryTableWidget->width() / count - 1;
@@ -40,9 +55,6 @@ bool MainWindow::initialize(int argc, char **argv) noexcept {
     ui_->inventoryTableWidget->setRowHeight(i, cellsize);
   }
 
-  ui_->itemTableWidget->verticalHeader()->hide();
-  ui_->itemTableWidget->setColumnCount(1);
-  ui_->itemTableWidget->horizontalHeader()->hide();
   ui_->itemTableWidget->setColumnWidth(0, cellsize);
   ui_->itemTableWidget->setRowCount(controller_->items().size());
 
@@ -60,12 +72,7 @@ bool MainWindow::initialize(int argc, char **argv) noexcept {
     item->setData(Qt::DecorationRole, QPixmap::fromImage(*image).scaled(cellsize, cellsize));
     ui_->itemTableWidget->setItem(i, 0, item);
   }
-
   return true;
-}
-
-const QString &MainWindow::message() noexcept {
-  return message_;
 }
 
 MainWindow::~MainWindow() = default;
