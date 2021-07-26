@@ -15,7 +15,6 @@ add_library(${NAME} ${HDRS} ${SRCS})
 target_link_libraries(${NAME} PRIVATE
         Qt5::Core
 
-        libitem
         libdatabase
         libinventory
         )

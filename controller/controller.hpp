@@ -6,7 +6,7 @@
 #define INVENTORY_TEST_CONTROLLER_CONTROLLER_HPP_
 #include <memory>
 #include <QVector>
-#include "../item/item.hpp"
+#include "../inventory/item.hpp"
 #include "../database/database.hpp"
 #include "../inventory/inventory.hpp"
 

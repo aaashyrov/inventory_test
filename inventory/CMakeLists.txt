@@ -1,10 +1,12 @@
 set(NAME libinventory)
 
 set(HDRS
+        item.hpp
         inventory.hpp
         )
 
 set(SRCS
+        item.cpp
         inventory.cpp
         )
 

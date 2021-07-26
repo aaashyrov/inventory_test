@@ -10,7 +10,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets Gui REQUIRED)
 
-add_subdirectory(item)
 add_subdirectory(database)
 add_subdirectory(inventory)
 add_subdirectory(controller)

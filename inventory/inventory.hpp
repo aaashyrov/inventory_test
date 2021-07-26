@@ -8,7 +8,7 @@
 #include <QMap>
 #include <QVector>
 #include <QString>
-#include "../item/item.hpp"
+#include "item.hpp"
 #include "../database/database.hpp"
 
 class Inventory {
