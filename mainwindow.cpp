@@ -1,12 +1,13 @@
 //
 // Created by alisher on 7/24/21.
 //
-
+#include <iostream>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "item_widget.hpp"
 #include <database/sqlitedb.hpp>
-#include <iostream>
 #include <QDebug>
+
 constexpr unsigned int count = 3;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -47,32 +48,33 @@ const QString &MainWindow::message() noexcept {
 }
 
 bool MainWindow::updateView() noexcept {
-  ui_->inventoryTableWidget->setRowCount(controller_->inventory().size() / count);
+  try {
+    ui_->inventoryTableWidget->setRowCount(controller_->inventory().size() / count);
 
-  auto cellsize = ui_->inventoryTableWidget->width() / count - 1;
-  for (std::size_t i = 0; i < count; ++i) {
-    ui_->inventoryTableWidget->setColumnWidth(i, cellsize);
-    ui_->inventoryTableWidget->setRowHeight(i, cellsize);
-  }
-
-  ui_->itemTableWidget->setColumnWidth(0, cellsize);
-  ui_->itemTableWidget->setRowCount(controller_->items().size());
-
-  for (std::size_t i = 0; i < controller_->items().size(); ++i) {
-    ui_->itemTableWidget->setRowHeight(i, cellsize);
-  }
-
-  for (size_t i = 0; i < controller_->items().size(); ++i) {
-    auto image = new QImage();
-    if (not image->load("../resources/" + controller_->items()[i + 1].impath())) {
-      return false;
+    auto cellsize = ui_->inventoryTableWidget->width() / count - 1;
+    for (std::size_t i = 0; i < count; ++i) {
+      ui_->inventoryTableWidget->setColumnWidth(i, cellsize);
+      ui_->inventoryTableWidget->setRowHeight(i, cellsize);
     }
 
-    auto *item = new QTableWidgetItem{};
-    item->setData(Qt::DecorationRole, QPixmap::fromImage(*image).scaled(cellsize, cellsize));
-    ui_->itemTableWidget->setItem(i, 0, item);
+    ui_->itemTableWidget->setColumnWidth(0, cellsize);
+    ui_->itemTableWidget->setRowCount(controller_->items().size());
+
+    for (std::size_t i = 0; i < controller_->items().size(); ++i) {
+      ui_->itemTableWidget->setRowHeight(i, cellsize);
+    }
+
+    for (size_t i = 0; i < controller_->items().size(); ++i) {
+      auto *item_widget = new ItemWidget(this, QSize(cellsize, cellsize));
+      item_widget->setItem(controller_->items()[i + 1]);
+      ui_->itemTableWidget->setCellWidget(i, 0, item_widget);
+    }
+    return true;
+  } catch (std::exception &ex) {
+    message_ = ex.what();
+    return false;
   }
-  return true;
+
 }
 
 MainWindow::~MainWindow() = default;

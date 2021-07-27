@@ -18,6 +18,8 @@ add_executable(inventory_test
         main.cpp
         mainwindow.h
         mainwindow.cpp
+        item_widget.cpp
+        item_widget.hpp
 
         mainwindow.ui
         )
