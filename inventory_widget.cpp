@@ -92,13 +92,12 @@ void InventoryWidget::mouseMoveEvent(QMouseEvent *event) {
   if (item_type == Item::Type::UNKNOWN) {
     return;
   }
+  QByteArray byte_array;
 
   auto data = new QMimeData{};
   data->setText(to_string(item_type));
   data->setImageData(controller_->inventory().items()[inventory_num_].second);
-
   auto drag = new QDrag(this);
-//  drag->setPixmap(pixmap());
   drag->setMimeData(data);
 
   if (drag->exec(Qt::MoveAction) != Qt::MoveAction) {
