@@ -4,14 +4,18 @@
 
 #ifndef INVENTORY_TEST__INVENTORY_WIDGET_HPP_
 #define INVENTORY_TEST__INVENTORY_WIDGET_HPP_
+#include <memory>
+
 #include <QWidget>
+
 #include <inventory/item.hpp>
+#include <controller/controller.hpp>
 
 class InventoryWidget : public QWidget {
  Q_OBJECT
 
  public:
-  InventoryWidget(QWidget *parent, const QSize &size);
+  InventoryWidget(QWidget *parent, const QSize &size, qsizetype num, std::shared_ptr<Controller> controller);
 
   ~InventoryWidget() override = default;
   InventoryWidget(const InventoryWidget &) = default;
@@ -19,12 +23,13 @@ class InventoryWidget : public QWidget {
   InventoryWidget &operator=(const InventoryWidget &) = default;
   InventoryWidget &operator=(InventoryWidget &&) noexcept = default;
 
-  void enterEvent(QEvent *event) override;
   void dropEvent(QDropEvent *event) override;
   void paintEvent(QPaintEvent *event) override;
+  void mousePressEvent(QMouseEvent *event) override;
   void dragEnterEvent(QDragEnterEvent *event) override;
+  void appendItemByType(const Item::Type &item_type, qsizetype count) noexcept;
  protected:
-  Item::Type item_type_;
-  qsizetype item_count_;
+  qsizetype inventory_num_;
+  std::shared_ptr<Controller> controller_;
 };
 #endif //INVENTORY_TEST__INVENTORY_WIDGET_HPP_

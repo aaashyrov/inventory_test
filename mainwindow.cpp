@@ -12,12 +12,10 @@
 constexpr unsigned int count = 3;
 
 MainWindow::MainWindow(QWidget *parent)
-    : QWidget(parent), ui_{std::make_unique<Ui::Widget>()}, controller_{std::make_unique<Controller>()} {}
+    : QWidget(parent), ui_{std::make_unique<Ui::Widget>()}, controller_{std::make_shared<Controller>()} {}
 
 bool MainWindow::initialize(int argc, char **argv) noexcept {
-  database_ =
-      std::make_shared<SqliteDb>(Param{"127.0.0.1", "/home/alisher/CLionProjects/inventory_test/resources/inventory.db",
-                                       "root", ""});
+  database_ = std::make_shared<SqliteDb>(Param{"127.0.0.1", "../resources/inventory.db", "root", ""});
   if (not database_->isOpen()) {
     message_ = database_->message();
     return false;
@@ -34,8 +32,8 @@ bool MainWindow::initialize(int argc, char **argv) noexcept {
   ui_->inventoryTableWidget->horizontalHeader()->hide();
 
   ui_->itemTableWidget->verticalHeader()->hide();
-  ui_->itemTableWidget->horizontalHeader()->hide();
   ui_->itemTableWidget->setColumnCount(1);
+  ui_->itemTableWidget->horizontalHeader()->hide();
 
   if (not updateView()) {
     return false;
@@ -72,7 +70,7 @@ bool MainWindow::updateView() noexcept {
     }
 
     for (size_t i = 0; i < controller_->inventory().size(); ++i) {
-      auto *inventory_widget = new InventoryWidget(this, QSize(cellsize, cellsize));
+      auto *inventory_widget = new InventoryWidget(this, QSize(cellsize, cellsize), i, controller_);
       ui_->inventoryTableWidget->setCellWidget(i / count, i % count, inventory_widget);
     }
     return true;

@@ -27,7 +27,6 @@ void ItemWidget::setItem(const Item &item) {
 void ItemWidget::paintEvent(QPaintEvent *event) {
   QPainter painter(this);
   painter.drawPixmap(rect(), QPixmap::fromImage(*image_).scaled(size()));
-  painter.save();
 }
 
 void ItemWidget::enterEvent(QEvent *event) {

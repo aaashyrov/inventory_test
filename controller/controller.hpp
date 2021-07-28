@@ -17,6 +17,7 @@ class Controller {
 
   [[nodiscard]] const Inventory &inventory() const noexcept;
   [[nodiscard]] const QMap<size_t, Item> &items() const noexcept;
+  void setItem(qsizetype i, Item::Type type, qsizetype count) noexcept;
   bool initialize(const std::shared_ptr<Database> &database) noexcept;
 
  private:

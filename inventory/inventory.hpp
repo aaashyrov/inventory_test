@@ -11,14 +11,19 @@
 #include "item.hpp"
 #include "../database/database.hpp"
 
+class Controller;
+
 class Inventory {
  public:
+
+  friend class Controller;
+
   Inventory() = default;
   ~Inventory() = default;
 
   qsizetype size() const noexcept;
-  bool initialize(const std::shared_ptr<Database> &database, const QMap<size_t, Item> &items) noexcept;
   const QMap<qsizetype, QPair<Item::Type, size_t>> &items() const noexcept;
+  bool initialize(const std::shared_ptr<Database> &database, const QMap<size_t, Item> &items) noexcept;
  private:
   qsizetype size_;
   QString message_;

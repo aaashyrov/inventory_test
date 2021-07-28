@@ -24,6 +24,7 @@ class ItemWidget : public QWidget {
   void paintEvent(QPaintEvent *event) override;
   void mouseMoveEvent(QMouseEvent *event) override;
   void mousePressEvent(QMouseEvent *event) override;
+
  protected:
   Item item_;
   QImage *image_;

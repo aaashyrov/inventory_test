@@ -18,15 +18,21 @@ class MainWindow : public QWidget {
 
  public:
   explicit MainWindow(QWidget *parent = nullptr);
+
   ~MainWindow() override;
-  bool initialize(int argc, char **argv) noexcept;
-  const QString& message() noexcept;
+  MainWindow(const MainWindow &) = default;
+  MainWindow(MainWindow &&) noexcept = default;
+  MainWindow &operator=(const MainWindow &) = default;
+  MainWindow &operator=(MainWindow &&) noexcept = default;
+
   bool updateView() noexcept;
+  const QString &message() noexcept;
+  bool initialize(int argc, char **argv) noexcept;
  private:
   QString message_;
   std::unique_ptr<Ui::Widget> ui_;
   std::shared_ptr<Database> database_;
-  std::unique_ptr<Controller> controller_;
+  std::shared_ptr<Controller> controller_;
 };
 
 #endif //INVENTORY_TEST__MAINWINDOW_H_
