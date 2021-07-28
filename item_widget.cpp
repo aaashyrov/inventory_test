@@ -20,7 +20,7 @@ void ItemWidget::setItem(const Item &item) {
   item_ = item;
   image_ = new QImage();
   if (not image_->load("../resources/" + item.impath())) {
-    throw std::runtime_error("image '../resources/" + item.impath().toStdString() + "' was not found");
+    throw std::runtime_error("pixmap '../resources/" + item.impath().toStdString() + "' was not found");
   }
 }
 
@@ -43,8 +43,8 @@ void ItemWidget::mouseMoveEvent(QMouseEvent *event) {
     return;
   }
 
-  auto *drag = new QDrag(this);
-  auto *data = new QMimeData;
+  auto drag = new QDrag(this);
+  auto data = new QMimeData;
   data->setImageData(1);
   data->setText(to_string(item_.type()));
 
