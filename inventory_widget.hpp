@@ -25,6 +25,7 @@ class InventoryWidget : public QWidget {
 
   void dropEvent(QDropEvent *event) override;
   void paintEvent(QPaintEvent *event) override;
+  void mouseMoveEvent(QMouseEvent *event) override;
   void mousePressEvent(QMouseEvent *event) override;
   void dragEnterEvent(QDragEnterEvent *event) override;
  protected:

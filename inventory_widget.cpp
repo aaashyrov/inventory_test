@@ -1,12 +1,14 @@
 //
 // Created by alisher on 7/28/21.
 //
+#include <QDrag>
 #include <QDebug>
 #include <QPainter>
 #include <QMimeData>
 #include <QDropEvent>
 #include <QMessageBox>
-#include <utility>
+#include <QApplication>
+
 #include "inventory_widget.hpp"
 
 InventoryWidget::InventoryWidget(QWidget *parent, const QSize &size,
@@ -54,13 +56,13 @@ void InventoryWidget::dragEnterEvent(QDragEnterEvent *event) {
 }
 
 void InventoryWidget::dropEvent(QDropEvent *event) {
-  event->acceptProposedAction();
   auto item_type = to_type(event->mimeData()->text());
 
   auto current_item_type = controller_->inventory().items()[inventory_num_].first;
   if (item_type != current_item_type and current_item_type != Item::Type::UNKNOWN) {
     return;
   }
+  event->acceptProposedAction();
 
   controller_->setItem(inventory_num_, item_type, controller_->inventory().items()[inventory_num_].second
       + event->mimeData()->imageData().toInt());
@@ -79,4 +81,29 @@ void InventoryWidget::mousePressEvent(QMouseEvent *event) {
   } else {
     mouse_press_pos_ = event->pos();
   }
+}
+
+void InventoryWidget::mouseMoveEvent(QMouseEvent *event) {
+  if (not event->buttons() & Qt::LeftButton
+      or QApplication::startDragDistance() > (event->pos() - mouse_press_pos_).manhattanLength()) {
+    return;
+  }
+  auto item_type = controller_->inventory().items()[inventory_num_].first;
+  if (item_type == Item::Type::UNKNOWN) {
+    return;
+  }
+
+  auto data = new QMimeData{};
+  data->setText(to_string(item_type));
+  data->setImageData(controller_->inventory().items()[inventory_num_].second);
+
+  auto drag = new QDrag(this);
+//  drag->setPixmap(pixmap());
+  drag->setMimeData(data);
+
+  if (drag->exec(Qt::MoveAction) != Qt::MoveAction) {
+    return;
+  }
+  controller_->setItem(inventory_num_, Item::Type::UNKNOWN, 0);
+  repaint();
 }
