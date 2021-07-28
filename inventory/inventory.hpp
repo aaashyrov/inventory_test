@@ -22,12 +22,12 @@ class Inventory {
   ~Inventory() = default;
 
   qsizetype size() const noexcept;
-  const QMap<qsizetype, QPair<Item::Type, size_t>> &items() const noexcept;
+  const QMap<qsizetype, QPair<Item::Type, qsizetype>> &items() const noexcept;
   bool initialize(const std::shared_ptr<Database> &database, const QMap<size_t, Item> &items) noexcept;
  private:
   qsizetype size_;
   QString message_;
-  QMap<qsizetype, QPair<Item::Type, size_t>> items_;
+  QMap<qsizetype, QPair<Item::Type, qsizetype>> items_;
 };
 
 #endif //INVENTORY_TEST_INVENTORY_INVENTORY_HPP_
