@@ -76,5 +76,7 @@ void InventoryWidget::mousePressEvent(QMouseEvent *event) {
     item_type = item_count == 0 ? Item::Type::UNKNOWN : item_type;
     controller_->setItem(inventory_num_, item_type, item_count);
     repaint();
+  } else {
+    mouse_press_pos_ = event->pos();
   }
 }

@@ -28,6 +28,8 @@ class InventoryWidget : public QWidget {
   void mousePressEvent(QMouseEvent *event) override;
   void dragEnterEvent(QDragEnterEvent *event) override;
  protected:
+
+  QPoint mouse_press_pos_;
   qsizetype inventory_num_;
   std::shared_ptr<Controller> controller_;
 };
