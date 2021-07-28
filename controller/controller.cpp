@@ -29,9 +29,7 @@ bool Controller::initialize(const std::shared_ptr<Database> &database) noexcept 
       return false;
     }
 
-    Item new_item{to_type(type.value().toString()), impath.value().toString()};
-    qDebug() << new_item.impath();
-    items_.insert(i, new_item);
+    items_.insert(i, Item {to_type(type.value().toString()), impath.value().toString()});
   }
 
   if (not inventory_.initialize(database, items_)) {
@@ -50,4 +48,3 @@ void Controller::setItem(qsizetype i, Item::Type type, qsizetype count) noexcept
   pair.second = count;
   inventory_.items_[i] = pair;
 }
-
