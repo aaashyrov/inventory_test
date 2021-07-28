@@ -27,7 +27,6 @@ class InventoryWidget : public QWidget {
   void paintEvent(QPaintEvent *event) override;
   void mousePressEvent(QMouseEvent *event) override;
   void dragEnterEvent(QDragEnterEvent *event) override;
-  void appendItemByType(const Item::Type &item_type, qsizetype count) noexcept;
  protected:
   qsizetype inventory_num_;
   std::shared_ptr<Controller> controller_;

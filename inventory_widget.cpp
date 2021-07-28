@@ -55,17 +55,15 @@ void InventoryWidget::dragEnterEvent(QDragEnterEvent *event) {
 
 void InventoryWidget::dropEvent(QDropEvent *event) {
   event->acceptProposedAction();
-  appendItemByType(to_type(event->mimeData()->text()), event->mimeData()->imageData().toInt());
-}
+  auto item_type = to_type(event->mimeData()->text());
 
-void InventoryWidget::appendItemByType(const Item::Type &item_type, qsizetype count) noexcept {
   auto current_item_type = controller_->inventory().items()[inventory_num_].first;
   if (item_type != current_item_type and current_item_type != Item::Type::UNKNOWN) {
     return;
   }
 
-  auto item_count = controller_->inventory().items()[inventory_num_].second + count;
-  controller_->setItem(inventory_num_, item_type, item_count);
+  controller_->setItem(inventory_num_, item_type, controller_->inventory().items()[inventory_num_].second
+      + event->mimeData()->imageData().toInt());
   repaint();
 }
 
@@ -79,5 +77,4 @@ void InventoryWidget::mousePressEvent(QMouseEvent *event) {
     controller_->setItem(inventory_num_, item_type, item_count);
     repaint();
   }
-  QWidget::mousePressEvent(event);
 }
