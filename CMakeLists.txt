@@ -20,6 +20,8 @@ add_executable(inventory_test
         mainwindow.cpp
         item_widget.cpp
         item_widget.hpp
+        inventory_widget.cpp
+        inventory_widget.hpp
 
         mainwindow.ui
         )

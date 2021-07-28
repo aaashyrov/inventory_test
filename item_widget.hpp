@@ -4,11 +4,8 @@
 
 #ifndef INVENTORY_TEST__ITEM_WIDGET_HPP_
 #define INVENTORY_TEST__ITEM_WIDGET_HPP_
-#include <memory>
 #include <QWidget>
 #include <inventory/item.hpp>
-
-class QLabel;
 
 class ItemWidget : public QWidget {
  Q_OBJECT

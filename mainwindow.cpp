@@ -5,6 +5,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "item_widget.hpp"
+#include "inventory_widget.hpp"
 #include <database/sqlitedb.hpp>
 #include <QDebug>
 
@@ -68,6 +69,11 @@ bool MainWindow::updateView() noexcept {
       auto *item_widget = new ItemWidget(this, QSize(cellsize, cellsize));
       item_widget->setItem(controller_->items()[i + 1]);
       ui_->itemTableWidget->setCellWidget(i, 0, item_widget);
+    }
+
+    for (size_t i = 0; i < controller_->inventory().size(); ++i) {
+      auto *inventory_widget = new InventoryWidget(this, QSize(cellsize, cellsize));
+      ui_->inventoryTableWidget->setCellWidget(i / count, i % count, inventory_widget);
     }
     return true;
   } catch (std::exception &ex) {

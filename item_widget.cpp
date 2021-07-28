@@ -45,10 +45,11 @@ void ItemWidget::mouseMoveEvent(QMouseEvent *event) {
   }
 
   auto *drag = new QDrag(this);
-  auto *mime_data = new QMimeData;
-  mime_data->setText(to_string(item_.type()));
-  drag->setMimeData(mime_data);
+  auto *data = new QMimeData;
+  data->setImageData(1);
+  data->setText(to_string(item_.type()));
+
+  drag->setMimeData(data);
   drag->setPixmap(QPixmap::fromImage(*image_).scaled(size()));
-  auto result = drag->exec(Qt::MoveAction);
-  qDebug() << "Drop action result: " << result;
+  drag->exec(Qt::MoveAction);
 }
