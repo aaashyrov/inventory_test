@@ -25,10 +25,12 @@ class ItemWidget : public QWidget {
   void setItem(const Item &item);
   void enterEvent(QEvent *event) override;
   void paintEvent(QPaintEvent *event) override;
-
+  void mouseMoveEvent(QMouseEvent *event) override;
+  void mousePressEvent(QMouseEvent *event) override;
  protected:
   Item item_;
   QImage *image_;
+  QPoint mouse_press_pos_;
 };
 
 #endif //INVENTORY_TEST__ITEM_WIDGET_HPP_
