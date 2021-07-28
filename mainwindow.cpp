@@ -1,13 +1,13 @@
 //
 // Created by alisher on 7/24/21.
 //
-#include <iostream>
+#include <QDebug>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "item_widget.hpp"
 #include "inventory_widget.hpp"
-#include <database/sqlitedb.hpp>
-#include <QDebug>
+#include "database/sqlitedb.hpp"
 
 constexpr unsigned int count = 3;
 
@@ -35,11 +35,7 @@ bool MainWindow::initialize(int argc, char **argv) noexcept {
   ui_->itemTableWidget->setColumnCount(1);
   ui_->itemTableWidget->horizontalHeader()->hide();
 
-  if (not updateView()) {
-    return false;
-  }
-
-  return true;
+  return updateView();
 }
 
 const QString &MainWindow::message() noexcept {
