@@ -13,10 +13,7 @@
 
 InventoryWidget::InventoryWidget(QWidget *parent, const QSize &size,
                                  qsizetype num, std::shared_ptr<Controller> controller)
-    : QWidget(parent), inventory_num_{num}, controller_{std::move(controller)} {
-  resize(size);
-  setAcceptDrops(true);
-}
+    : ItemWidget(parent, size), inventory_num_{num}, controller_{std::move(controller)} { setAcceptDrops(true); }
 
 void setText(QImage &image, const QString &text) {
   QPainter painter(&image);
@@ -62,6 +59,11 @@ void InventoryWidget::dropEvent(QDropEvent *event) {
   if (item_type != current_item_type and current_item_type != Item::Type::UNKNOWN) {
     return;
   }
+
+  if (item_num_ == event->mimeData()->colorData().toInt()) {
+    return;
+  }
+
   event->acceptProposedAction();
 
   controller_->setItem(inventory_num_, item_type, controller_->inventory().items()[inventory_num_].second
@@ -70,12 +72,13 @@ void InventoryWidget::dropEvent(QDropEvent *event) {
 }
 
 void InventoryWidget::mousePressEvent(QMouseEvent *event) {
-  if (event->buttons() & Qt::RightButton) {
+  if (event->button() == Qt::RightButton) {
     auto item_count = controller_->inventory().items()[inventory_num_].second;
     item_count = item_count == 0 ? item_count : item_count - 1;
 
     auto item_type = controller_->inventory().items()[inventory_num_].first;
     item_type = item_count == 0 ? Item::Type::UNKNOWN : item_type;
+
     controller_->setItem(inventory_num_, item_type, item_count);
     repaint();
   } else {
@@ -84,7 +87,7 @@ void InventoryWidget::mousePressEvent(QMouseEvent *event) {
 }
 
 void InventoryWidget::mouseMoveEvent(QMouseEvent *event) {
-  if (not event->buttons() & Qt::LeftButton
+  if (event->button() == Qt::RightButton
       or QApplication::startDragDistance() > (event->pos() - mouse_press_pos_).manhattanLength()) {
     return;
   }
@@ -92,17 +95,18 @@ void InventoryWidget::mouseMoveEvent(QMouseEvent *event) {
   if (item_type == Item::Type::UNKNOWN) {
     return;
   }
-  QByteArray byte_array;
 
   auto data = new QMimeData{};
+  data->setColorData(item_num_);
   data->setText(to_string(item_type));
   data->setImageData(controller_->inventory().items()[inventory_num_].second);
+
   auto drag = new QDrag(this);
   drag->setMimeData(data);
-
   if (drag->exec(Qt::MoveAction) != Qt::MoveAction) {
     return;
   }
+
   controller_->setItem(inventory_num_, Item::Type::UNKNOWN, 0);
   repaint();
 }

@@ -48,8 +48,8 @@ bool MainWindow::updateView() noexcept {
 
     auto cellsize = ui_->inventoryTableWidget->width() / count - 1;
     for (std::size_t i = 0; i < count; ++i) {
-      ui_->inventoryTableWidget->setColumnWidth(i, cellsize);
       ui_->inventoryTableWidget->setRowHeight(i, cellsize);
+      ui_->inventoryTableWidget->setColumnWidth(i, cellsize);
     }
 
     ui_->itemTableWidget->setColumnWidth(0, cellsize);
@@ -66,10 +66,12 @@ bool MainWindow::updateView() noexcept {
     }
 
     for (size_t i = 0; i < controller_->inventory().size(); ++i) {
-      auto *inventory_widget = new InventoryWidget(this, QSize(cellsize, cellsize), i, controller_);
-      ui_->inventoryTableWidget->setCellWidget(i / count, i % count, inventory_widget);
+      ui_->inventoryTableWidget
+          ->setCellWidget(i / count, i % count,
+                          new InventoryWidget(this, QSize(cellsize, cellsize), i + 1, controller_));
     }
     return true;
+
   } catch (std::exception &ex) {
     message_ = ex.what();
     return false;

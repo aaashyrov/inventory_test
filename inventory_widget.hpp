@@ -8,10 +8,11 @@
 
 #include <QWidget>
 
+#include <item_widget.hpp>
 #include <inventory/item.hpp>
 #include <controller/controller.hpp>
 
-class InventoryWidget : public QWidget {
+class InventoryWidget : public ItemWidget {
  Q_OBJECT
 
  public:
@@ -30,7 +31,6 @@ class InventoryWidget : public QWidget {
   void dragEnterEvent(QDragEnterEvent *event) override;
  protected:
 
-  QPoint mouse_press_pos_;
   qsizetype inventory_num_;
   std::shared_ptr<Controller> controller_;
 };

@@ -20,14 +20,17 @@ class ItemWidget : public QWidget {
   ItemWidget &operator=(ItemWidget &&) noexcept = default;
 
   void setItem(const Item &item);
-  void enterEvent(QEvent *event) override;
   void paintEvent(QPaintEvent *event) override;
   void mouseMoveEvent(QMouseEvent *event) override;
   void mousePressEvent(QMouseEvent *event) override;
 
- protected:
+ private:
   Item item_;
+  static qsizetype item_counter_;
+
+ protected:
   QImage *image_;
+  qsizetype item_num_;
   QPoint mouse_press_pos_;
 };
 
