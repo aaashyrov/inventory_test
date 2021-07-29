@@ -39,10 +39,17 @@ qsizetype SqliteDb::size_of(const QString &table) noexcept {
 
 std::optional<QVariant> SqliteDb::value(const QString &table, const QString &name, qsizetype i) noexcept {
   QSqlQuery query(db_);
-  if (not query.exec("select * from " + table + " where id = " + QString::number(i))) {
+  if (not query.exec("select * from " + table + " where id = " + QString::number(i) + ";")) {
     qDebug() << "[SqliteDb::value] " << query.lastError().text();
     return std::nullopt;
   }
   query.first();
   return query.value(name);
+}
+
+void SqliteDb::set(const QString &table, const QString &name, qsizetype i, const QString &value) noexcept {
+  QSqlQuery query(db_);
+  if (not query.exec("update " + table + " set  " + name + "=" + value + " where id = " + QString::number(i) + ";")) {
+    qDebug() << "[SqliteDb::value] " << query.lastError().text();
+  }
 }

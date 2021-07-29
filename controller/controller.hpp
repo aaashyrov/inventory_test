@@ -13,7 +13,7 @@
 class Controller {
  public:
   Controller();
-  ~Controller() = default;
+  ~Controller();
 
   [[nodiscard]] const Inventory &inventory() const noexcept;
   [[nodiscard]] const QMap<size_t, Item> &items() const noexcept;
@@ -23,6 +23,7 @@ class Controller {
  private:
   Inventory inventory_;
   QMap<size_t, Item> items_;
+  std::shared_ptr<Database> database_;
 };
 
 #endif //INVENTORY_TEST_CONTROLLER_CONTROLLER_HPP_

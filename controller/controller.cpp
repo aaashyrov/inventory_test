@@ -14,6 +14,7 @@ const Inventory &Controller::inventory() const noexcept {
 }
 
 bool Controller::initialize(const std::shared_ptr<Database> &database) noexcept {
+  database_ = database;
   auto size = database->size_of("item");
   if (not size) return false;
 
@@ -29,7 +30,7 @@ bool Controller::initialize(const std::shared_ptr<Database> &database) noexcept 
       return false;
     }
 
-    items_.insert(i, Item {to_type(type.value().toString()), impath.value().toString()});
+    items_.insert(i, Item{to_type(type.value().toString()), impath.value().toString()});
   }
 
   if (not inventory_.initialize(database, items_)) {
@@ -47,4 +48,11 @@ void Controller::setItem(qsizetype i, Item::Type type, qsizetype count) noexcept
   pair.first = type;
   pair.second = count;
   inventory_.items_[i] = pair;
+}
+
+Controller::~Controller() {
+  for (auto it = inventory_.items_.begin(); it != inventory_.items_.end(); ++it) {
+    database_->set("inventory", "num", it.key(), QString::number(it.value().second));
+    database_->set("inventory", "type", it.key(), QString::number(to_uint(it.value().first)));
+  }
 }

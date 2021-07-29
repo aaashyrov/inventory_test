@@ -27,3 +27,11 @@ Item::Type to_type(const QString &type) {
   if (type == "banana") return Item::Type::BANANA;
   return Item::Type::APPLE;
 }
+
+uint8_t to_uint(Item::Type type) {
+  switch (type) {
+    case Item::Type::APPLE: 1;
+    case Item::Type::BANANA: 2;
+    case Item::Type::UNKNOWN: 0;
+  }
+}

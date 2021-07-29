@@ -29,7 +29,7 @@ class SqliteDb : public Database {
   QString message() noexcept override;
   qsizetype size_of(const QString &table) noexcept override;
   std::optional<QVariant> value(const QString &table, const QString &name, qsizetype i) noexcept override;
-
+  void set(const QString &table, const QString &name, qsizetype i, const QString &value) noexcept override;
  private:
   Param param_;
   QSqlDatabase db_;

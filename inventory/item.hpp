@@ -29,7 +29,7 @@ class Item {
   QString image_path_;
 };
 
+uint8_t to_uint(Item::Type type);
 QString to_string(Item::Type type);
 Item::Type to_type(const QString &type);
-
 #endif //INVENTORY_TEST_ITEM_ITEM_HPP_

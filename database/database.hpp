@@ -15,6 +15,7 @@ class Database {
 
   virtual qsizetype size_of(const QString &table) noexcept = 0;
   virtual std::optional<QVariant> value(const QString &table, const QString &name, qsizetype i) noexcept = 0;
+  virtual void set(const QString &table, const QString &name, qsizetype i, const QString &value) noexcept = 0;
 
   Database() = default;
   virtual ~Database() = default;
