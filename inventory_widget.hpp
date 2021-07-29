@@ -29,6 +29,7 @@ class InventoryWidget : public ItemWidget {
   void mouseMoveEvent(QMouseEvent *event) override;
   void mousePressEvent(QMouseEvent *event) override;
   void dragEnterEvent(QDragEnterEvent *event) override;
+
  protected:
 
   qsizetype inventory_num_;
