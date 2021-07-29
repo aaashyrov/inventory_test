@@ -29,7 +29,7 @@ class MainWindow : public QWidget {
   bool initialize(int argc, char **argv) noexcept;
 
  public slots:
-  void soundAudio();
+  void playAudio();
 
  private:
   QString message_;

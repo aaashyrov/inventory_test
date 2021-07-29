@@ -77,6 +77,6 @@ const QString &MainWindow::message() noexcept {
   return message_;
 }
 
-void MainWindow::soundAudio() {
+void MainWindow::playAudio() {
   QSound::play("../resources/getoutofitem.wav");
 }
