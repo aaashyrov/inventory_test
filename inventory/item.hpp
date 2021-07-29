@@ -20,9 +20,10 @@ class Item {
   Item(const Item &) = default;
   Item(Item &&) noexcept = default;
   Item &operator=(const Item &) = default;
+  [[nodiscard]] Type type() const noexcept;
   Item &operator=(Item &&) noexcept = default;
-  Type type() const noexcept;
-  const QString &impath() const noexcept;
+  [[nodiscard]] const QString &impath() const noexcept;
+
  private:
   Type type_;
   QString image_path_;

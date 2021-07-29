@@ -24,6 +24,7 @@ class Inventory {
   qsizetype size() const noexcept;
   const QMap<qsizetype, QPair<Item::Type, qsizetype>> &items() const noexcept;
   bool initialize(const std::shared_ptr<Database> &database, const QMap<size_t, Item> &items) noexcept;
+
  private:
   qsizetype size_;
   QString message_;

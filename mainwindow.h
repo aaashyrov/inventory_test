@@ -28,6 +28,7 @@ class MainWindow : public QWidget {
   bool updateView() noexcept;
   const QString &message() noexcept;
   bool initialize(int argc, char **argv) noexcept;
+
  private:
   QString message_;
   std::unique_ptr<Ui::Widget> ui_;

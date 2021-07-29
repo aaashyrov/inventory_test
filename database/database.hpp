@@ -16,7 +16,12 @@ class Database {
   virtual qsizetype size_of(const QString &table) noexcept = 0;
   virtual std::optional<QVariant> value(const QString &table, const QString &name, qsizetype i) noexcept = 0;
 
+  Database() = default;
   virtual ~Database() = default;
+  Database(const Database &) = default;
+  Database(Database &&) noexcept = default;
+  Database &operator=(const Database &) = default;
+  Database &operator=(Database &&) noexcept = default;
 };
 
 #endif //INVENTORY_TEST_DATABASE_DATABASE_HPP_

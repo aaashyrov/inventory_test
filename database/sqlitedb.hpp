@@ -20,6 +20,11 @@ class SqliteDb : public Database {
  public:
   explicit SqliteDb(Param param);
   ~SqliteDb() override;
+  SqliteDb(const SqliteDb &) = default;
+  SqliteDb(SqliteDb &&) noexcept = default;
+  SqliteDb &operator=(const SqliteDb &) = default;
+  SqliteDb &operator=(SqliteDb &&) noexcept = default;
+
   bool isOpen() noexcept override;
   QString message() noexcept override;
   qsizetype size_of(const QString &table) noexcept override;
