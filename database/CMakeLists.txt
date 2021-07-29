@@ -7,7 +7,6 @@ set(HDRS
 
 set(SRCS
         sqlitedb.cpp
-        database.cpp
         )
 
 find_package(Qt5 COMPONENTS Core Sql REQUIRED)
