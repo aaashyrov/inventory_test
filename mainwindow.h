@@ -28,6 +28,9 @@ class MainWindow : public QWidget {
   const QString &message() noexcept;
   bool initialize(int argc, char **argv) noexcept;
 
+ public slots:
+  void soundAudio();
+
  private:
   QString message_;
   std::unique_ptr<Ui::Widget> ui_;

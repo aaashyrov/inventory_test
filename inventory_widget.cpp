@@ -11,9 +11,12 @@
 
 #include "inventory_widget.hpp"
 
-InventoryWidget::InventoryWidget(QWidget *parent, const QSize &size,
+InventoryWidget::InventoryWidget(MainWindow *parent, const QSize &size,
                                  qsizetype num, std::shared_ptr<Controller> controller)
-    : ItemWidget(parent, size), inventory_num_{num}, controller_{std::move(controller)} { setAcceptDrops(true); }
+    : ItemWidget(parent, size), inventory_num_{num}, controller_{std::move(controller)} {
+  setAcceptDrops(true);
+  connect(this, SIGNAL(gotOutOfItem()), parent, SLOT(soundAudio()));
+}
 
 void setText(QImage &image, const QString &text) {
   QPainter painter(&image);
@@ -78,6 +81,8 @@ void InventoryWidget::mousePressEvent(QMouseEvent *event) {
 
     auto item_type = controller_->inventory().items()[inventory_num_].first;
     item_type = item_count == 0 ? Item::Type::UNKNOWN : item_type;
+
+    if (item_count == 0) emit gotOutOfItem();
 
     controller_->setItem(inventory_num_, item_type, item_count);
     repaint();

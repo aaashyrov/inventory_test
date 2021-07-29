@@ -8,6 +8,7 @@
 
 #include <QWidget>
 
+#include <mainwindow.h>
 #include <item_widget.hpp>
 #include <inventory/item.hpp>
 #include <controller/controller.hpp>
@@ -16,7 +17,7 @@ class InventoryWidget : public ItemWidget {
  Q_OBJECT
 
  public:
-  InventoryWidget(QWidget *parent, const QSize &size, qsizetype num, std::shared_ptr<Controller> controller);
+  InventoryWidget(MainWindow *parent, const QSize &size, qsizetype num, std::shared_ptr<Controller> controller);
 
   ~InventoryWidget() override = default;
   InventoryWidget(const InventoryWidget &) = default;
@@ -29,6 +30,9 @@ class InventoryWidget : public ItemWidget {
   void mouseMoveEvent(QMouseEvent *event) override;
   void mousePressEvent(QMouseEvent *event) override;
   void dragEnterEvent(QDragEnterEvent *event) override;
+
+ signals:
+  void gotOutOfItem();
 
  protected:
 

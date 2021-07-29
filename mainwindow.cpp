@@ -2,6 +2,7 @@
 // Created by alisher on 7/24/21.
 //
 #include <QDebug>
+#include <QSound>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -74,4 +75,8 @@ bool MainWindow::initialize(int argc, char **argv) noexcept {
 
 const QString &MainWindow::message() noexcept {
   return message_;
+}
+
+void MainWindow::soundAudio() {
+  QSound::play("../resources/getoutofitem.wav");
 }

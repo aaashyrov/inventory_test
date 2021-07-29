@@ -11,6 +11,7 @@ qsizetype Inventory::size() const noexcept {
 const QMap<qsizetype, QPair<Item::Type, qsizetype>> &Inventory::items() const noexcept {
   return items_;
 }
+
 bool Inventory::initialize(const std::shared_ptr<Database> &database, const QMap<size_t, Item> &items) noexcept {
   size_ = database->size_of("inventory");
   if (not size_) {
