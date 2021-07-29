@@ -11,42 +11,36 @@
 
 constexpr unsigned int count = 3;
 
+MainWindow::~MainWindow() = default;
+
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent), ui_{std::make_unique<Ui::Widget>()}, controller_{std::make_shared<Controller>()} {}
 
 bool MainWindow::initialize(int argc, char **argv) noexcept {
-  database_ = std::make_shared<SqliteDb>(Param{"127.0.0.1", "../resources/inventory.db", "root", ""});
-  if (not database_->isOpen()) {
-    message_ = database_->message();
-    return false;
-  }
-
-  if (not controller_->initialize(database_)) {
-    return false;
-  }
-
-  ui_->setupUi(this);
-  ui_->gameWidget->hide();
-  ui_->inventoryTableWidget->setColumnCount(count);
-  ui_->inventoryTableWidget->verticalHeader()->hide();
-  ui_->inventoryTableWidget->horizontalHeader()->hide();
-
-  ui_->itemTableWidget->verticalHeader()->hide();
-  ui_->itemTableWidget->setColumnCount(1);
-  ui_->itemTableWidget->horizontalHeader()->hide();
-
-  return updateView();
-}
-
-const QString &MainWindow::message() noexcept {
-  return message_;
-}
-
-bool MainWindow::updateView() noexcept {
   try {
+    database_ = std::make_shared<SqliteDb>(Param{"127.0.0.1", "../resources/inventory.db", "root", ""});
+    if (not database_->isOpen()) {
+      message_ = database_->message();
+      return false;
+    }
+
+    if (not controller_->initialize(database_)) {
+      return false;
+    }
+
+    ui_->setupUi(this);
+    ui_->gameWidget->hide();
+    ui_->inventoryTableWidget->setColumnCount(count);
+    ui_->inventoryTableWidget->verticalHeader()->hide();
+    ui_->inventoryTableWidget->horizontalHeader()->hide();
+
+    ui_->itemTableWidget->verticalHeader()->hide();
+    ui_->itemTableWidget->setColumnCount(1);
+    ui_->itemTableWidget->horizontalHeader()->hide();
     ui_->inventoryTableWidget->setRowCount(controller_->inventory().size() / count);
 
     auto cellsize = ui_->inventoryTableWidget->width() / count - 1;
+
     for (std::size_t i = 0; i < count; ++i) {
       ui_->inventoryTableWidget->setRowHeight(i, cellsize);
       ui_->inventoryTableWidget->setColumnWidth(i, cellsize);
@@ -76,7 +70,8 @@ bool MainWindow::updateView() noexcept {
     message_ = ex.what();
     return false;
   }
-
 }
 
-MainWindow::~MainWindow() = default;
+const QString &MainWindow::message() noexcept {
+  return message_;
+}

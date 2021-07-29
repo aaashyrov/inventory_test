@@ -25,7 +25,6 @@ class MainWindow : public QWidget {
   MainWindow &operator=(const MainWindow &) = default;
   MainWindow &operator=(MainWindow &&) noexcept = default;
 
-  bool updateView() noexcept;
   const QString &message() noexcept;
   bool initialize(int argc, char **argv) noexcept;
 
