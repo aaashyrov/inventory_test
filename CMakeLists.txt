@@ -26,8 +26,4 @@ add_executable(inventory_test
         mainwindow.ui
         )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
-        Qt5::Gui
-        Qt5::Widgets
-        libcontroller
-        )
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Gui Qt5::Widgets libcontroller)
