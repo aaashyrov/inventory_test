@@ -6,7 +6,6 @@
 #include <QPainter>
 #include <QMimeData>
 #include <QDropEvent>
-#include <QMessageBox>
 #include <QApplication>
 
 #include "inventory_widget.hpp"
@@ -15,7 +14,7 @@ InventoryWidget::InventoryWidget(MainWindow *parent, const QSize &size,
                                  qsizetype num, std::shared_ptr<Controller> controller)
     : ItemWidget(parent, size), inventory_num_{num}, controller_{std::move(controller)} {
   setAcceptDrops(true);
-  connect(this, SIGNAL(gotOutOfItem()), parent, SLOT(soundAudio()));
+  connect(this, SIGNAL(gotOutOfItem()), parent, SLOT(playAudio()));
 }
 
 void setText(QImage &image, const QString &text) {
